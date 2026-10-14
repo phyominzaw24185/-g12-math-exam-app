@@ -2738,7 +2738,7 @@ function stack(root){
     if(!cells.length||!g.clientWidth) return;
     var m=0; cells.forEach(function(c){ if(c.scrollWidth>m) m=c.scrollWidth; });
     g.setAttribute('data-sc','1');
-    if(m>g.clientWidth*0.3) g.classList.add('mg-stack');
+    if(m>g.clientWidth*0.62) g.classList.add('mg-stack');
   });
 }
 function run(){ try{ stack(document); }catch(e){} }
