@@ -1010,6 +1010,17 @@
   }
   #appShell[hidden]{ display:none; }
 .va{position:relative;display:inline-block;line-height:1}.va>i{display:block}.va::before{content:"";position:absolute;left:.02em;right:0;top:-.1em;border-top:.045em solid currentColor}.va::after,.va>i{content:"";position:absolute;right:0;top:-.1em;width:.22em;height:0;border-top:.045em solid currentColor;transform-origin:100% 50%}.va::after{transform:rotate(30deg)}.va>i{transform:rotate(-30deg)}.va.vl{font-style:italic;padding-right:.08em}.va.vl::before{top:-.1em;left:.08em;right:.06em}.va.vl::after,.va.vl>i{top:-.1em;right:.06em}.vb{font-weight:700}.ht.hk::before{top:-.14em}.ht.hi::before,.ht.hj::before{top:.02em}.ht{position:relative;display:inline-block;font-style:italic;line-height:1}.ht::before{content:"";position:absolute;left:50%;top:.1em;width:.2em;height:.2em;box-sizing:border-box;border-top:.045em solid currentColor;border-left:.045em solid currentColor;transform:translate(-50%,0) rotate(45deg)}</style>
+<style>
+.marks-dist{margin:22px 0 10px;padding:14px 12px;background:var(--card,#fff);border:1px solid var(--line,#e3dccd);border-radius:14px}
+.marks-dist h3{margin:0 0 10px;font-size:1rem}
+.md-scroll{overflow-x:auto}
+.md-table{border-collapse:collapse;width:100%;min-width:360px;text-align:center;font-size:.9rem}
+.md-table th,.md-table td{border:1px solid var(--line,#cfc6b4);padding:6px 4px}
+.md-table th{background:var(--blue-tint,#e8eef8)}
+.md-table tfoot td,.md-table .md-tot{font-weight:700}
+.md-table tfoot td{background:var(--blue-tint,#e8eef8)}
+.md-note{margin:10px 0 0;font-size:.82rem;opacity:.8}
+</style>
 </head>
 <body>
 
@@ -2235,6 +2246,14 @@
     });
 
     wrap.appendChild(grid);
+
+    const MD = [["1","1","2","3","5","11"],["2","-","-","3","5","8"],["3 + 4","1","2","3 + 3","5","14"],["5","1","2","3","5","11"],["6","1","2","3","5","11"],["7","1","2","-","5","8"],["8","1 + 1","2","3","-","7"],["9","1","2","3","5","11"],["10","1","2 + 2","3","-","8"],["11","1","2","3","5","11"]];
+    const md = document.createElement("div");
+    md.className = "marks-dist";
+    md.innerHTML = `<h3>အမှတ်ခွဲဝေပုံ (Marks Distributions)</h3>
+      <div class="md-scroll"><table class="md-table"><thead><tr><th>Chapter</th><th>Section A</th><th>Section B</th><th>Section C</th><th>Section D</th><th>Total</th></tr></thead><tbody>${MD.map(r => `<tr>${r.map((c,i)=> i===5?`<td class="md-tot">${c}</td>`:`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody><tfoot><tr><td>Total</td><td>10</td><td>20</td><td>30</td><td>40</td><td>100</td></tr></tfoot></table></div>
+      <p class="md-note">Section A: 1 mark &times; 10 &nbsp;&middot;&nbsp; Section B: 2 marks &times; 10 &nbsp;&middot;&nbsp; Section C: 3 marks &times; 10 &nbsp;&middot;&nbsp; Section D: 5 marks &times; 8 &nbsp;=&nbsp; 100 marks</p>`;
+    wrap.appendChild(md);
     return wrap;
   }
 
