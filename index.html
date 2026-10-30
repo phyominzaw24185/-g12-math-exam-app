@@ -3039,7 +3039,7 @@ function cv(n){
  function kids(){var o='';n.childNodes.forEach(function(k){o+=cv(k);});return o;}
  if(t==='SUP'||t==='SUB'){var k=kids().trim();return '{}'+(t==='SUP'?'^':'_')+'{'+k+'}';}
  if(c.contains('rt')){var idx='',cont='';for(var i=0;i<n.children.length;i++){var e=n.children[i];if(e.classList.contains('rt-i'))idx=esc(e.textContent);else if(e.classList.contains('rt-c'))cont=cv(e);}
-  return idx?'\\sqrt['+idx.trim()+']{'+cont+'}':'\\sqrt{'+cont+'}';}
+  return idx?'\\sqrt['+idx.trim()+']{\\vphantom{\\big(}'+cont+'}':'\\sqrt{\\vphantom{\\big(}'+cont+'}';}
  if(c.contains('mfrac')){var nu='',de='';for(var j=0;j<n.children.length;j++){var q=n.children[j];if(q.classList.contains('mnum'))nu=cv(q);else if(q.classList.contains('mden'))de=cv(q);}return '\\frac{'+nu+'}{'+de+'}';}
  if(c.contains('mfunc'))return '\\mathrm{'+esc(n.textContent)+'}\\,';
  if(t==='I'||t==='EM')return '\\mathit{'+kids()+'}';
