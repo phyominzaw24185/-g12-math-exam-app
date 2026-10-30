@@ -1020,6 +1020,14 @@
 .md-table tfoot td,.md-table .md-tot{font-weight:700}
 .md-table tfoot td{background:var(--blue-tint,#e8eef8)}
 .md-groups{margin-top:12px;min-width:0}.md-groups td:first-child{text-align:left;padding-left:10px}
+.md-list,.md-tips{margin:8px 0;padding-left:1.2em;font-size:.9rem;line-height:1.7}
+.md-tips{list-style:none;padding-left:0}.md-tips li::before{content:"\2713\00a0";color:var(--green,#2e7d4f);font-weight:700}
+.md-sec{margin:8px 0;padding:8px 10px;border-left:3px solid var(--blue,#2c5aa0);background:var(--blue-tint,#e8eef8);border-radius:6px;font-size:.9rem;line-height:1.7}.md-sec p{margin:2px 0 0}
+.md-sub{margin:10px 0 0;font-weight:600;font-size:.9rem}
+.md-cov{margin:8px 0;min-width:0}.md-cov td{text-align:left;padding:6px 8px}
+.marks-dist h4{margin:16px 0 8px;font-size:.95rem}
+.md-det{margin:6px 0;border:1px solid var(--line,#cfc6b4);border-radius:8px;padding:6px 10px}.md-det summary{cursor:pointer;font-weight:600;font-size:.88rem}
+.md-q{margin:6px 0 2px;padding-left:2em;font-size:.88rem;line-height:1.6}
 .md-note{margin:10px 0 0;font-size:.82rem;opacity:.8}
 </style>
 </head>
@@ -2251,10 +2259,44 @@
     const MD = [["1","1","2","3","5","11"],["2","-","-","3","5","8"],["3 + 4","1","2","3 + 3","5","14"],["5","1","2","3","5","11"],["6","1","2","3","5","11"],["7","1","2","-","5","8"],["8","1 + 1","2","3","-","7"],["9","1","2","3","5","11"],["10","1","2 + 2","3","-","8"],["11","1","2","3","5","11"]];
     const md = document.createElement("div");
     md.className = "marks-dist";
-    md.innerHTML = `<h3>အမှတ်ခွဲဝေပုံ (Marks Distributions)</h3>
-      <div class="md-scroll"><table class="md-table"><thead><tr><th>Chapter</th><th>Section A</th><th>Section B</th><th>Section C</th><th>Section D</th><th>Total</th></tr></thead><tbody>${MD.map(r => `<tr>${r.map((c,i)=> i===5?`<td class="md-tot">${c}</td>`:`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody><tfoot><tr><td>Total</td><td>10</td><td>20</td><td>30</td><td>40</td><td>100</td></tr></tfoot></table></div>
+    const QMAP = {
+      A:[["1","Chapter 1"],["2","Chapter 3, Chapter 4"],["3","Chapter 5"],["4","Chapter 6"],["5","Chapter 7 Section 7.1, 7.2, 7.3, 7.4"],["6","Chapter 8 Section 8.1"],["7","Chapter 8 Section 8.3"],["8","Chapter 9, Chapter 7 Section 7.5, Chapter 8 Section 8.2, 8.4"],["9","Chapter 10"],["10","Chapter 11"]],
+      B:[["11","Chapter 1"],["12","Chapter 3, Chapter 4"],["13","Chapter 5"],["14","Chapter 6"],["15","Chapter 7 Section 7.1, 7.2, 7.3, 7.4"],["16","Chapter 8 Section 8.1, Section 8.3"],["17","Chapter 9, Chapter 7 Section 7.5, Chapter 8 Section 8.2, 8.4"],["18","Chapter 10"],["19","Chapter 10"],["20","Chapter 11"]],
+      C:[["21","Chapter 1"],["22","Chapter 2"],["23","Chapter 3, Chapter 4"],["24","Chapter 3, Chapter 4"],["25","Chapter 5"],["26","Chapter 6"],["27","Chapter 8 Section 8.1, Section 8.3"],["28","Chapter 9, Chapter 7 Section 7.5, Chapter 8 Section 8.2, 8.4"],["29","Chapter 10"],["30","Chapter 11"]],
+      D:[["31","Chapter 1"],["32","Chapter 2"],["33","Chapter 3, Chapter 4"],["34","Chapter 5"],["35","Chapter 6"],["36","Chapter 7 Section 7.1, 7.2, 7.3, 7.4"],["37","Chapter 9, Chapter 7 Section 7.5, Chapter 8 Section 8.2, 8.4"],["38","Chapter 11"]]
+    };
+    const QTITLE = {A:"Section A (Each question carries 1 mark.)",B:"Section B (Each question carries 2 marks.)",C:"Section C (Each question carries 3 marks.)",D:"Section D (Each question carries 5 marks.)"};
+    md.innerHTML = `<h3>အမှတ်ပေးစည်းမျဉ်း — သင်္ချာဘာသာရပ် မေးခွန်းအကြောင်းအရာ</h3>
+      <ul class="md-list">
+        <li>၃ နာရီ ဖြေဆိုရမည့် မေးခွန်းဖြစ်ပါသည်။ မေးခွန်းအားလုံးကို ဖြေဆိုရပါမည်။ <b>Answer All Questions</b> ဖြစ်ပါသည်။ မေးခွန်းဖြေဆိုရာတွင် <b>Non-programmable Calculator</b> အသုံးပြုနိုင်ပါသည်။</li>
+        <li>မေးခွန်းတွင် Section A၊ Section B၊ Section C နှင့် Section D အပိုင်း ၄ ပိုင်းပါရှိသည်။</li>
+      </ul>
+      <div class="md-sec"><b>Section A</b><p>မေးခွန်းနံပါတ် 1 မှ 10 အထိ ဖြစ်ပါသည်။ <b>တစ်ပုဒ် ၁ မှတ်</b> ဖြစ်ပါသည်။ တစ်ပုဒ်လျှင် A, B, C, D တို့မှ တစ်ခုရွေးချယ်ရမည့် <b>ရွေးချယ်ဖြေ (Multiple Choice) ပုံစံ</b> ဖြစ်ပါသည်။</p></div>
+      <div class="md-sec"><b>Section B</b><p>မေးခွန်းနံပါတ် 11 မှ 20 အထိ ဖြစ်ပါသည်။ <b>တစ်ပုဒ် ၂ မှတ်</b> ဖြစ်ပါသည်။ တွက်ချက်မှုအဆင့်ဆင့်ကို ရေးပြရန်မလိုအပ်ဘဲ <b>အဖြေကိုသာ ရေးရမည့်</b> ပုံစံ ဖြစ်ပါသည်။</p></div>
+      <div class="md-sec"><b>Section C</b><p>မေးခွန်းနံပါတ် 21 မှ 30 အထိ ဖြစ်ပါသည်။ <b>တစ်ပုဒ် ၃ မှတ်</b> ဖြစ်ပါသည်။ <b>တွက်ချက်မှု အဆင့်ဆင့်ကို စနစ်တကျ ရေးပြရန်</b> လိုအပ်ပါသည်။</p></div>
+      <div class="md-sec"><b>Section D</b><p>မေးခွန်းနံပါတ် 31 မှ 38 အထိ ဖြစ်ပါသည်။ <b>တစ်ပုဒ် ၅ မှတ်</b> ဖြစ်ပါသည်။ <b>တွက်ချက်မှုအဆင့်ဆင့်ကို စနစ်တကျ ရေးပြရန်</b> လိုအပ်ပါသည်။</p></div>
+      <p class="md-sub">မေးခွန်းတွင် အခန်းအားလုံးပါဝင်မည် ဖြစ်ပါသည်။</p>
+      <ul class="md-list">
+        <li><b>အခန်း ၁၊ ၂၊ ၃၊ ၄၊ ၅၊ ၆</b> တို့မှ <b>၅၅ မှတ်</b> ပါဝင်မည်ဖြစ်ပါသည်။</li>
+        <li><b>အခန်း ၇ နှင့် အခန်း ၈</b> တို့မှ calculus (Section 7.5, Section 8.2, Section 8.4) မပါဝင်သည့် အပိုင်းများမှ <b>၁၅ မှတ်</b> ပါဝင်မည်ဖြစ်ပါသည်။</li>
+        <li>Section 7.5, Section 8.2, Section 8.4 နှင့် <b>အခန်း ၉၊ ၁၀၊ ၁၁</b> ပါဝင်သော calculus အပိုင်းမှ <b>၃၀ မှတ်</b> ပါဝင်မည် ဖြစ်ပါသည်။</li>
+      </ul>
+      <div class="md-scroll"><table class="md-table md-cov"><tbody><tr><td>Chapter 7 &minus;</td><td>Section 7.1, 7.2, 7.3, 7.4 သာ</td><td>Section 7.5 မပါ</td></tr><tr><td>Chapter 8 &minus;</td><td>Section 8.1, 8.3 သာ</td><td>Section 8.2, 8.4 မပါ</td></tr><tr><td>Chapter 9 +</td><td colspan="2">Chapter 9 + Section 7.5, 8.2, 8.4</td></tr></tbody></table></div>
+      <h4>Marks Distributions</h4>
+<div class="md-scroll"><table class="md-table"><thead><tr><th>Chapter</th><th>Section A</th><th>Section B</th><th>Section C</th><th>Section D</th><th>Total</th></tr></thead><tbody>${MD.map(r => `<tr>${r.map((c,i)=> i===5?`<td class="md-tot">${c}</td>`:`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody><tfoot><tr><td>Total</td><td>10</td><td>20</td><td>30</td><td>40</td><td>100</td></tr></tfoot></table></div>
       <div class="md-scroll"><table class="md-table md-groups"><thead><tr><th>Chapters</th><th>Marks</th></tr></thead><tbody><tr><td>Chapter 1 / 2 / 3 / 4 / 5 / 6</td><td class="md-tot">55</td></tr><tr><td>Chapter 7 / 8</td><td class="md-tot">15</td></tr><tr><td>Chapter 9 / 10 / 11</td><td class="md-tot">30</td></tr></tbody><tfoot><tr><td>Total</td><td>100</td></tr></tfoot></table></div>
-      <p class="md-note">Section A: 1 mark &times; 10 &nbsp;&middot;&nbsp; Section B: 2 marks &times; 10 &nbsp;&middot;&nbsp; Section C: 3 marks &times; 10 &nbsp;&middot;&nbsp; Section D: 5 marks &times; 8 &nbsp;=&nbsp; 100 marks</p>`;
+      
+      <p class="md-note">Section A: 1 mark &times; 10 &nbsp;&middot;&nbsp; Section B: 2 marks &times; 10 &nbsp;&middot;&nbsp; Section C: 3 marks &times; 10 &nbsp;&middot;&nbsp; Section D: 5 marks &times; 8 &nbsp;=&nbsp; 100 marks</p>
+      <h4>နံပါတ်အလိုက် အခန်းပုစ္ဆာများ</h4>
+      ${["A","B","C","D"].map(k => `<details class="md-det"><summary>${QTITLE[k]}</summary><ol class="md-q">${QMAP[k].map(r => `<li value="${r[0]}">${r[1]}</li>`).join("")}</ol></details>`).join("")}
+      <h4>စာမေးပွဲ ဖြေဆိုရာတွင် သတိပြုရန်</h4>
+      <ul class="md-tips">
+        <li>ဖြေဆိုထားသော အဖြေများကို ပြန်လည် စစ်ဆေးပါ။</li>
+        <li>သင်္ချာ သင်္ကေတများကို မှန်ကန်စွာ အသုံးပြုပါ။</li>
+        <li>ပုစ္ဆာများ တွက်ချက်ရာတွင် လိုအပ်သော အဆင့် အရေးကြီးသော အဆင့်များ ပါပါစေ။</li>
+        <li>မေးခွန်းတွင် အသုံးပြုရမည့် တွက်နည်းများ သတ်မှတ်ပေးထားလျှင် သတ်မှတ်ထားသော တွက်နည်းကိုသာ အသုံးပြုပါ။</li>
+        <li>မိမိ ဖြေဆိုလိုသည့် မေးခွန်းကို မေးခွန်းနံပါတ်တပ်၍ ဖြေဆိုပါ။ (မေးခွန်းနံပါတ် အစဉ်အတိုင်း ဖြေဆိုရန် မလိုပါ။)</li>
+      </ul>`;
     wrap.appendChild(md);
     return wrap;
   }
