@@ -2823,7 +2823,21 @@
 
     const panel = document.createElement("div");
     panel.className = "panel";
-    const list = ch.journal[state.year] || [];
+    let list = ch.journal[state.year] || [];
+    if(list.some(it => it.sec)){
+      const SEC_MARK = { A:1, B:2, C:3, D:5 };
+      const mb = document.createElement("div");
+      mb.className = "subbar";
+      MARKS.forEach(m => {
+        const bt = document.createElement("button");
+        bt.textContent = m + " မှတ်တန်";
+        bt.className = state.mark === m ? "active" : "";
+        bt.addEventListener("click", () => go({ mark: m }));
+        mb.appendChild(bt);
+      });
+      wrap.appendChild(mb);
+      list = list.filter(it => SEC_MARK[it.sec] === state.mark);
+    }
 
     if(list.length === 0){
       panel.appendChild(emptyState(`${state.year} ခုနှစ် ဂျာနယ်မေးခွန်းများ ထည့်ရန် လိုအပ်သည်`));
