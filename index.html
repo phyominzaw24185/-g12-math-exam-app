@@ -118,6 +118,22 @@
     gap:16px;
     flex-wrap:wrap;
   }
+
+  /* ---------- Home cover ---------- */
+  header.site-header.cover{padding:0;min-height:340px;display:flex}
+  header.site-header.cover::after{display:none}
+  header.site-header.cover .header-inner{max-width:980px;width:100%;padding:34px 22px 26px;display:block;position:relative;z-index:2}
+  header.site-header.cover nav.crumbs{display:none}
+  header.site-header.cover .brand{gap:8px;max-width:78%}
+  header.site-header.cover .brand h1{font-size:clamp(30px,8vw,46px);line-height:1.05;font-weight:700;letter-spacing:-.01em}
+  header.site-header.cover .brand h1 em{font-style:normal;color:var(--gold-2)}
+  header.site-header.cover .brand .sub{font-size:13px;margin-top:2px}
+  .cover-art{display:none}
+  header.site-header.cover .cover-art{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+  .cover-chips{display:none}
+  header.site-header.cover .cover-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .cover-chips span{font-family:"Space Mono",monospace;font-size:11px;color:#f2ede0;border:1px solid rgba(227,192,115,.55);border-radius:999px;padding:6px 12px;background:rgba(14,27,46,.55);backdrop-filter:blur(2px)}
+  .cover-chips b{color:var(--gold-2);font-weight:700}
   .brand{
     display:flex;
     flex-direction:column;
@@ -1111,12 +1127,24 @@
 
 <div id="appShell">
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
+  <svg class="cover-art" viewBox="0 0 400 340" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
+    <defs><pattern id="cvg" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" fill="none" stroke="rgba(227,192,115,.10)" stroke-width="1"/></pattern></defs>
+    <rect width="400" height="340" fill="url(#cvg)"/>
+    <line x1="0" y1="300" x2="400" y2="300" stroke="rgba(227,192,115,.35)" stroke-width="1.2"/>
+    <line x1="300" y1="0" x2="300" y2="340" stroke="rgba(227,192,115,.30)" stroke-width="1.2"/>
+    <path d="M0 300 C 25 262, 50 262, 75 300 S 125 338, 150 300 S 200 262, 225 300 S 275 338, 300 300 S 350 262, 375 300 S 410 330, 420 300" fill="none" stroke="#e3c073" stroke-width="2.4" opacity=".9"/>
+    <path d="M240 340 Q300 -120 360 340" fill="none" stroke="#6fc3b2" stroke-width="2.2" opacity=".85"/>
+    <circle cx="300" cy="110" r="4.5" fill="#6fc3b2"/>
+    <circle cx="300" cy="300" r="3.5" fill="#e3c073"/>
+    <text x="316" y="62" font-family="Lora,serif" font-size="50" font-weight="700" fill="none" stroke="rgba(227,192,115,.5)" stroke-width="1.2">12</text>
+  </svg>
   <div class="header-inner">
     <div class="brand">
       <span class="eyebrow mono">MCK EDUCATION CENTER · MANDALAY</span>
-      <h1>Grade 12 Mathematics</h1>
+      <h1>Grade 12 <em>Mathematics</em></h1>
       <span class="sub">Example · Exercise · မေးခွန်းဟောင်း · ဂျာနယ်</span>
+      <div class="cover-chips"><span><b>11</b> အခန်း</span><span><b>3</b> နှစ် ဂျာနယ်</span><span>Casio fx-991ES</span></div>
     </div>
     <nav class="crumbs" id="crumbs"></nav>
     <button id="logoutBtn" class="logout-btn" type="button" title="ထွက်ရန်" hidden style="display:none">ထွက်ရန်</button>
@@ -2272,6 +2300,7 @@
   /* ---------------- Render: crumbs ---------------- */
   function renderCrumbs(){
     crumbs.innerHTML = "";
+    var hd=document.getElementById('siteHeader'); if(hd) hd.classList.toggle('cover', state.view==='home');
     const homeBtn = document.createElement("button");
     homeBtn.textContent = "ပင်မစာမျက်နှာ";
     homeBtn.addEventListener("click", () => go({ view:"home", chapterId:null }));
